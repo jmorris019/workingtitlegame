@@ -1,0 +1,3 @@
+public enum WeaponMaterialEnum {
+    CARDBOARD, PLASTIC, WOOD, STONE,CRYSTALMEGASUPERWEAPON;
+}
