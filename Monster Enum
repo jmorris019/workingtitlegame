@@ -1,0 +1,3 @@
+public enum MonsterEnum {
+BRUTE, NINJA, BEAST;
+}
