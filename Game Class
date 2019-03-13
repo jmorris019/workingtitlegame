@@ -1,0 +1,42 @@
+import java.util.Scanner;
+public class Game {
+    Scanner reader;
+    String name;
+
+    public Game() {
+        reader = new Scanner(System.in);
+    }
+
+    public String getInput() {
+        System.out.print("> ");
+        String inputLine = reader.nextLine();
+        return inputLine;
+    }
+
+    public static void main(String[] args) {
+        Game test = new Game();
+        test.gameStart();
+    }
+
+    public void gameStart() {
+        Map start = new Map();
+        start.reset();
+        start.printMap();
+        System.out.println("Welcome brave sir knight! You have safely arrived in\n" +
+                "The Panera Forrest. What is your name brave knight?");
+        name = getInput();
+        boolean gameOn = true;
+        while(gameOn!=false){
+            String input = getInput();
+            if (input.contains("quit")) {
+                gameOn = false;
+            } else {
+                generateResponse(input);
+            }
+        }
+        System.out.println("game over");
+    }
+    
+    
+    
+}
