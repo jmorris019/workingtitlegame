@@ -1,14 +1,20 @@
 package sample;
 import java.util.Scanner;
+
+/**
+ * This Class is to start the game, as well as generate responses
+ */
 public class Game {
+    Player newPlayer = new Player();
     Scanner reader;
-    String name;
     String input;
 
+    /**
+     * Constructor that sets reader to scan inputs into system
+     * Sets name as an empty string
+     */
     public Game() {
         reader = new Scanner(System.in);
-        name = "";
-
     }
 
     public String getInput() {
@@ -29,33 +35,32 @@ public class Game {
 
         System.out.println("Welcome brave sir knight! You have safely arrived in\n" +
                 "The Panera Forrest. What is your name brave knight?");
-        name = getInput();
-        generateResponse(input);
+        this.newPlayer.name = getInput();
+        System.out.println("Welcome good Sir " + this.newPlayer.name + ". You have been chosen for \n" +
+                           "this great quest. The evil Tyrant Mark has taken the four cities \n" +
+                           "around this forrest hostage. You have been tasked to take back \n" +
+                           "the cities, and save all these people. You will need a weapon \n" +
+                           "to complete this task. Choose wisely:");
+        
         boolean gameOn = true;
-
-        while(gameOn!=false){
+        while(gameOn != false){
             input = getInput();
             if (input.contains("quit")) {
                 gameOn = false;
             } else {
-                String response = generateResponse(input);
+                String response = generateResponse();
                 System.out.println(response);
             }
         }
         System.out.println("game over");
     }
 
-    public String generateResponse(String input) {
-        
-        
-        if(input.equals(name)) {
-            System.out.println("welcome Sir" + name);
-        }
-        System.out.println("");
+    public String generateResponse() {
+        return("");
+
     }
 
 }
-
 
 
 
