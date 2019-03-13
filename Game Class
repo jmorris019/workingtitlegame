@@ -1,10 +1,14 @@
+package sample;
 import java.util.Scanner;
 public class Game {
     Scanner reader;
     String name;
+    String input;
 
     public Game() {
         reader = new Scanner(System.in);
+        name = "";
+
     }
 
     public String getInput() {
@@ -22,21 +26,38 @@ public class Game {
         Map start = new Map();
         start.reset();
         start.printMap();
+
         System.out.println("Welcome brave sir knight! You have safely arrived in\n" +
                 "The Panera Forrest. What is your name brave knight?");
         name = getInput();
+        generateResponse(input);
         boolean gameOn = true;
+
         while(gameOn!=false){
-            String input = getInput();
+            input = getInput();
             if (input.contains("quit")) {
                 gameOn = false;
             } else {
-                generateResponse(input);
+                String response = generateResponse(input);
+                System.out.println(response);
             }
         }
         System.out.println("game over");
     }
-    
-    
-    
+
+    public String generateResponse(String input) {
+        
+        
+        if(input.equals(name)) {
+            System.out.println("welcome Sir" + name);
+        }
+        System.out.println("");
+    }
+
 }
+
+
+
+
+
+
