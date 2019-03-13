@@ -1,0 +1,491 @@
+import java.util.Random;
+
+public class Market {
+    int poisonAPrice = 5;
+    int bandagePrice = 5;
+    int aspirinPrice = 5;
+    int coffeePrice = 5;
+    int cPPrice = 2;
+    int scannerPrice = 10;
+    int energyDrinkPrice = 10;
+    public Random r = new Random();
+    HashMap<Items, Integer> marketItems;
+    String marketName;
+    boolean isCityMarket;
+    int marketSize;
+    Items[] itemArray = new Items[marketSize];
+    int[] itemPrices = new int[marketSize];
+    Market() {
+        this.marketName = "Dan's Traveling Market";
+        marketSize = 3;
+        int item1 = r.nextInt(7);
+        int item2 = r.nextInt(7);
+        int item3 = r.nextInt(7);
+        this.itemArray = new Items[marketSize];
+        this.itemPrices = new int[marketSize];
+        switch (item1){
+            case 0:
+                itemArray[0] = Items.POISONANTEDOTE;
+                itemPrices[0] = poisonAPrice;
+                break;
+            case 1:
+                itemArray[0] = Items.BANDAGE;
+                itemPrices[0] = bandagePrice;
+                break;
+            case 2:
+                itemArray[0] = Items.ASPIRIN;
+                itemPrices[0] = aspirinPrice;
+                break;
+            case 3:
+                itemArray[0] = Items.COFFEE;
+                itemPrices[0] = coffeePrice;
+                break;
+            case 4:
+                itemArray[0] = Items.SCANNER;
+                itemPrices[0] = scannerPrice;
+                break;
+            case 5:
+                itemArray[0] = Items.CHICKENPARM;
+                itemPrices[0] = cPPrice;
+                break;
+            case 6:
+                itemArray[0] = Items.ENERGYDRINK;
+                itemPrices[0] = energyDrinkPrice;
+                break;
+        }
+        switch (item2) {
+            case 0:
+                itemArray[1] = Items.POISONANTEDOTE;
+                itemPrices[1] = poisonAPrice;
+                break;
+            case 1:
+                itemArray[1] = Items.BANDAGE;
+                itemPrices[1] = bandagePrice;
+                break;
+            case 2:
+                itemArray[1] = Items.ASPIRIN;
+                itemPrices[1] = aspirinPrice;
+                break;
+            case 3:
+                itemArray[1] = Items.COFFEE;
+                itemPrices[1] = coffeePrice;
+                break;
+            case 4:
+                itemArray[1] = Items.SCANNER;
+                itemPrices[1] = scannerPrice;
+                break;
+            case 5:
+                itemArray[1] = Items.CHICKENPARM;
+                itemPrices[1] = cPPrice;
+                break;
+            case 6:
+                itemArray[1] = Items.ENERGYDRINK;
+                itemPrices[1] = energyDrinkPrice;
+                break;
+        }
+        switch (item3) {
+            case 0:
+                itemArray[2] = Items.POISONANTEDOTE;
+                itemPrices[2] = poisonAPrice;
+                break;
+            case 1:
+                itemArray[2] = Items.BANDAGE;
+                itemPrices[2] = bandagePrice;
+                break;
+            case 2:
+                itemArray[2] = Items.ASPIRIN;
+                itemPrices[2] = aspirinPrice;
+                break;
+            case 3:
+                itemArray[2] = Items.COFFEE;
+                itemPrices[2] = coffeePrice;
+                break;
+            case 4:
+                itemArray[2] = Items.SCANNER;
+                itemPrices[2] = scannerPrice;
+                break;
+            case 5:
+                itemArray[2] = Items.CHICKENPARM;
+                itemPrices[2] = cPPrice;
+                break;
+            case 6:
+                itemArray[2] = Items.ENERGYDRINK;
+                itemPrices[2] = energyDrinkPrice;
+                break;
+        }
+    }
+
+        Market(String marketName) {
+            this.marketName = marketName;
+            marketSize = 3;
+            int item1 = r.nextInt(7);
+            int item2 = r.nextInt(7);
+            int item3 = r.nextInt(7);
+            this.itemArray = new Items[marketSize];
+            this.itemPrices = new int[marketSize];
+            switch (item1){
+                case 0:
+                    itemArray[0] = Items.POISONANTEDOTE;
+                    itemPrices[0] = poisonAPrice;
+                    break;
+                case 1:
+                    itemArray[0] = Items.BANDAGE;
+                    itemPrices[0] = bandagePrice;
+                    break;
+                case 2:
+                    itemArray[0] = Items.ASPIRIN;
+                    itemPrices[0] = aspirinPrice;
+                    break;
+                case 3:
+                    itemArray[0] = Items.COFFEE;
+                    itemPrices[0] = coffeePrice;
+                    break;
+                case 4:
+                    itemArray[0] = Items.SCANNER;
+                    itemPrices[0] = scannerPrice;
+                    break;
+                case 5:
+                    itemArray[0] = Items.CHICKENPARM;
+                    itemPrices[0] = cPPrice;
+                    break;
+                case 6:
+                    itemArray[0] = Items.ENERGYDRINK;
+                    itemPrices[0] = energyDrinkPrice;
+                    break;
+            }
+            switch (item2) {
+                case 0:
+                    itemArray[1] = Items.POISONANTEDOTE;
+                    itemPrices[1] = poisonAPrice;
+                    break;
+                case 1:
+                    itemArray[1] = Items.BANDAGE;
+                    itemPrices[1] = bandagePrice;
+                    break;
+                case 2:
+                    itemArray[1] = Items.ASPIRIN;
+                    itemPrices[1] = aspirinPrice;
+                    break;
+                case 3:
+                    itemArray[1] = Items.COFFEE;
+                    itemPrices[1] = coffeePrice;
+                    break;
+                case 4:
+                    itemArray[1] = Items.SCANNER;
+                    itemPrices[1] = scannerPrice;
+                    break;
+                case 5:
+                    itemArray[1] = Items.CHICKENPARM;
+                    itemPrices[1] = cPPrice;
+                    break;
+                case 6:
+                    itemArray[1] = Items.ENERGYDRINK;
+                    itemPrices[1] = energyDrinkPrice;
+                    break;
+            }
+            switch (item3) {
+                case 0:
+                    itemArray[2] = Items.POISONANTEDOTE;
+                    itemPrices[2] = poisonAPrice;
+                    break;
+                case 1:
+                    itemArray[2] = Items.BANDAGE;
+                    itemPrices[2] = bandagePrice;
+                    break;
+                case 2:
+                    itemArray[2] = Items.ASPIRIN;
+                    itemPrices[2] = aspirinPrice;
+                    break;
+                case 3:
+                    itemArray[2] = Items.COFFEE;
+                    itemPrices[2] = coffeePrice;
+                    break;
+                case 4:
+                    itemArray[2] = Items.SCANNER;
+                    itemPrices[2] = scannerPrice;
+                    break;
+                case 5:
+                    itemArray[2] = Items.CHICKENPARM;
+                    itemPrices[2] = cPPrice;
+                    break;
+                case 6:
+                    itemArray[2] = Items.ENERGYDRINK;
+                    itemPrices[2] = energyDrinkPrice;
+                    break;
+            }
+        }
+    Market(String marketName, boolean isCityMarket) {
+        this.marketName = marketName;
+        this.isCityMarket = isCityMarket;
+        if (isCityMarket) {
+            marketSize = 5;
+            int item1 = r.nextInt(7);
+            int item2 = r.nextInt(7);
+            int item3 = r.nextInt(7);
+            int item4 = r.nextInt(7);
+            int item5 = r.nextInt(7);
+            this.itemArray = new Items[marketSize];
+            this.itemPrices = new int[marketSize];
+            switch (item1) {
+                case 0:
+                    itemArray[0] = Items.POISONANTEDOTE;
+                    itemPrices[0] = poisonAPrice;
+                    break;
+                case 1:
+                    itemArray[0] = Items.BANDAGE;
+                    itemPrices[0] = bandagePrice;
+                    break;
+                case 2:
+                    itemArray[0] = Items.ASPIRIN;
+                    itemPrices[0] = aspirinPrice;
+                    break;
+                case 3:
+                    itemArray[0] = Items.COFFEE;
+                    itemPrices[0] = coffeePrice;
+                    break;
+                case 4:
+                    itemArray[0] = Items.SCANNER;
+                    itemPrices[0] = scannerPrice;
+                    break;
+                case 5:
+                    itemArray[0] = Items.CHICKENPARM;
+                    itemPrices[0] = cPPrice;
+                    break;
+                case 6:
+                    itemArray[0] = Items.ENERGYDRINK;
+                    itemPrices[0] = energyDrinkPrice;
+                    break;
+            }
+            switch (item2) {
+                case 0:
+                    itemArray[1] = Items.POISONANTEDOTE;
+                    itemPrices[1] = poisonAPrice;
+                    break;
+                case 1:
+                    itemArray[1] = Items.BANDAGE;
+                    itemPrices[1] = bandagePrice;
+                    break;
+                case 2:
+                    itemArray[1] = Items.ASPIRIN;
+                    itemPrices[1] = aspirinPrice;
+                    break;
+                case 3:
+                    itemArray[1] = Items.COFFEE;
+                    itemPrices[1] = coffeePrice;
+                    break;
+                case 4:
+                    itemArray[1] = Items.SCANNER;
+                    itemPrices[1] = scannerPrice;
+                    break;
+                case 5:
+                    itemArray[1] = Items.CHICKENPARM;
+                    itemPrices[1] = cPPrice;
+                    break;
+                case 6:
+                    itemArray[1] = Items.ENERGYDRINK;
+                    itemPrices[1] = energyDrinkPrice;
+                    break;
+            }
+            switch (item3) {
+                case 0:
+                    itemArray[2] = Items.POISONANTEDOTE;
+                    itemPrices[2] = poisonAPrice;
+                    break;
+                case 1:
+                    itemArray[2] = Items.BANDAGE;
+                    itemPrices[2] = bandagePrice;
+                    break;
+                case 2:
+                    itemArray[2] = Items.ASPIRIN;
+                    itemPrices[2] = aspirinPrice;
+                    break;
+                case 3:
+                    itemArray[2] = Items.COFFEE;
+                    itemPrices[2] = coffeePrice;
+                    break;
+                case 4:
+                    itemArray[2] = Items.SCANNER;
+                    itemPrices[2] = scannerPrice;
+                    break;
+                case 5:
+                    itemArray[2] = Items.CHICKENPARM;
+                    itemPrices[2] = cPPrice;
+                    break;
+                case 6:
+                    itemArray[2] = Items.ENERGYDRINK;
+                    itemPrices[2] = energyDrinkPrice;
+                    break;
+            }
+
+            switch (item4) {
+                case 0:
+                    itemArray[3] = Items.POISONANTEDOTE;
+                    itemPrices[3] = poisonAPrice;
+                    break;
+                case 1:
+                    itemArray[3] = Items.BANDAGE;
+                    itemPrices[3] = bandagePrice;
+                    break;
+                case 2:
+                    itemArray[3] = Items.ASPIRIN;
+                    itemPrices[3] = aspirinPrice;
+                    break;
+                case 3:
+                    itemArray[3] = Items.COFFEE;
+                    itemPrices[3] = coffeePrice;
+                    break;
+                case 4:
+                    itemArray[3] = Items.SCANNER;
+                    itemPrices[3] = scannerPrice;
+                    break;
+                case 5:
+                    itemArray[3] = Items.CHICKENPARM;
+                    itemPrices[3] = cPPrice;
+                    break;
+                case 6:
+                    itemArray[3] = Items.ENERGYDRINK;
+                    itemPrices[3] = energyDrinkPrice;
+                    break;
+            }
+            switch (item5) {
+                case 0:
+                    itemArray[4] = Items.POISONANTEDOTE;
+                    itemPrices[4] = poisonAPrice;
+                    break;
+                case 1:
+                    itemArray[4] = Items.BANDAGE;
+                    itemPrices[4] = bandagePrice;
+                    break;
+                case 2:
+                    itemArray[4] = Items.ASPIRIN;
+                    itemPrices[4] = aspirinPrice;
+                    break;
+                case 3:
+                    itemArray[4] = Items.COFFEE;
+                    itemPrices[4] = coffeePrice;
+                    break;
+                case 4:
+                    itemArray[4] = Items.SCANNER;
+                    itemPrices[4] = scannerPrice;
+                    break;
+                case 5:
+                    itemArray[4] = Items.CHICKENPARM;
+                    itemPrices[4] = cPPrice;
+                    break;
+                case 6:
+                    itemArray[4] = Items.ENERGYDRINK;
+                    itemPrices[4] = energyDrinkPrice;
+                    break;
+            }
+        } else {
+            marketSize = 3;
+            int item1 = r.nextInt(7);
+            int item2 = r.nextInt(7);
+            int item3 = r.nextInt(7);
+            this.itemArray = new Items[marketSize];
+            this.itemPrices = new int[marketSize];
+            switch (item1) {
+                case 0:
+                    itemArray[0] = Items.POISONANTEDOTE;
+                    itemPrices[0] = poisonAPrice;
+                    break;
+                case 1:
+                    itemArray[0] = Items.BANDAGE;
+                    itemPrices[0] = bandagePrice;
+                    break;
+                case 2:
+                    itemArray[0] = Items.ASPIRIN;
+                    itemPrices[0] = aspirinPrice;
+                    break;
+                case 3:
+                    itemArray[0] = Items.COFFEE;
+                    itemPrices[0] = coffeePrice;
+                    break;
+                case 4:
+                    itemArray[0] = Items.SCANNER;
+                    itemPrices[0] = scannerPrice;
+                    break;
+                case 5:
+                    itemArray[0] = Items.CHICKENPARM;
+                    itemPrices[0] = cPPrice;
+                    break;
+                case 6:
+                    itemArray[0] = Items.ENERGYDRINK;
+                    itemPrices[0] = energyDrinkPrice;
+                    break;
+            }
+            switch (item2) {
+                case 0:
+                    itemArray[1] = Items.POISONANTEDOTE;
+                    itemPrices[1] = poisonAPrice;
+                    break;
+                case 1:
+                    itemArray[1] = Items.BANDAGE;
+                    itemPrices[1] = bandagePrice;
+                    break;
+                case 2:
+                    itemArray[1] = Items.ASPIRIN;
+                    itemPrices[1] = aspirinPrice;
+                    break;
+                case 3:
+                    itemArray[1] = Items.COFFEE;
+                    itemPrices[1] = coffeePrice;
+                    break;
+                case 4:
+                    itemArray[1] = Items.SCANNER;
+                    itemPrices[1] = scannerPrice;
+                    break;
+                case 5:
+                    itemArray[1] = Items.CHICKENPARM;
+                    itemPrices[1] = cPPrice;
+                    break;
+                case 6:
+                    itemArray[1] = Items.ENERGYDRINK;
+                    itemPrices[1] = energyDrinkPrice;
+                    break;
+            }
+            switch (item3) {
+                case 0:
+                    itemArray[2] = Items.POISONANTEDOTE;
+                    itemPrices[2] = poisonAPrice;
+                    break;
+                case 1:
+                    itemArray[2] = Items.BANDAGE;
+                    itemPrices[2] = bandagePrice;
+                    break;
+                case 2:
+                    itemArray[2] = Items.ASPIRIN;
+                    itemPrices[2] = aspirinPrice;
+                    break;
+                case 3:
+                    itemArray[2] = Items.COFFEE;
+                    itemPrices[2] = coffeePrice;
+                    break;
+                case 4:
+                    itemArray[2] = Items.SCANNER;
+                    itemPrices[2] = scannerPrice;
+                    break;
+                case 5:
+                    itemArray[2] = Items.CHICKENPARM;
+                    itemPrices[2] = cPPrice;
+                    break;
+                case 6:
+                    itemArray[2] = Items.ENERGYDRINK;
+                    itemPrices[2] = energyDrinkPrice;
+                    break;
+            }
+        }
+
+    }
+    void printMarketMenu(){
+        System.out.printf("Welcome to %s!\nFeatured Items:\n", this.marketName);
+         for (int i = 0; i < marketSize; i++) {
+             System.out.println(itemArray[i].getDescription() + ": " + itemPrices[i]);
+        }
+    }
+
+    public static void main(String[] args) {
+        Market test = new Market("Target", false);
+        test.printMarketMenu();
+    }
+}
