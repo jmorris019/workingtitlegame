@@ -1,12 +1,13 @@
+import java.util.Random;
 public class Monster{
     String name;
     MonsterEnum type;
-    int currentHealth;
-    int maxHealth;
+    double currentHealth;
+    double maxHealth;
     int power;
     double diseaseChance;
     DiseaseEnum diseaseCarried;
-    Monster(String name, MonsterEnum type, int currentHealth, int maxHealth, int power, double diseaseChance, DiseaseEnum diseaseCarried){
+    Monster(String name, MonsterEnum type, double currentHealth, double maxHealth, int power, double diseaseChance, DiseaseEnum diseaseCarried){
             this.name = name;
             this.type = type;
             this.currentHealth = currentHealth;
@@ -37,6 +38,66 @@ public class Monster{
         if (type == MonsterEnum.BEAST) {
             this.name = name;
             this.type = type;
+            this.currentHealth = 20;
+            this.maxHealth = 20;
+            this.power = 5;
+            this.diseaseChance = 0;
+            this.diseaseCarried = DiseaseEnum.NONE;
+        }
+    }
+    Monster(MonsterEnum type) {
+        if (type == MonsterEnum.BRUTE) {
+            this.name = "Brutus";
+            this.type = type;
+            this.currentHealth = 30;
+            this.maxHealth = 30;
+            this.power = 1;
+            this.diseaseChance = 0;
+            this.diseaseCarried = DiseaseEnum.NONE;
+        }
+        if (type == MonsterEnum.NINJA) {
+            this.name = "Ninja Jack";
+            this.type = type;
+            this.currentHealth = 10;
+            this.maxHealth = 10;
+            this.power = 10;
+            this.diseaseChance = 0;
+            this.diseaseCarried = DiseaseEnum.NONE;
+        }
+        if (type == MonsterEnum.BEAST) {
+            this.name = "Brad the Beast";
+            this.type = type;
+            this.currentHealth = 20;
+            this.maxHealth = 20;
+            this.power = 5;
+            this.diseaseChance = 0;
+            this.diseaseCarried = DiseaseEnum.NONE;
+        }
+    }
+    Monster() { // Chooses random type of beast if none is specified
+        Random r = new Random();
+        int random = r.nextInt(3);
+        if (random == 0) {
+            this.name = "Brutus";
+            this.type = MonsterEnum.BRUTE;
+            this.currentHealth = 30;
+            this.maxHealth = 30;
+            this.power = 1;
+            this.diseaseChance = 0;
+            this.diseaseCarried = DiseaseEnum.NONE;
+        }
+        if (random == 1) { 
+            this.name = "Ninja Jack";
+            this.type = MonsterEnum.NINJA;
+            this.currentHealth = 10;
+            this.maxHealth = 10;
+            this.power = 10;
+            this.diseaseChance = 0;
+            this.diseaseCarried = DiseaseEnum.NONE;
+        }
+        if (random == 2) {
+            this.name = "Brad the Beast";
+            this.type = MonsterEnum.BEAST;
             this.currentHealth = 20;
             this.maxHealth = 20;
             this.power = 5;
