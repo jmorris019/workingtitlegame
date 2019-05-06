@@ -1,2 +1,25 @@
 public class Player {
+    String name;
+    double currentHealth;
+    double maxHealth;
+    WeaponTypes weapon;
+    WeaponMaterialEnum weaponMaterial;
+    DiseaseEnum disease;
+    // need backpack and shiz
+    Player() {
+        this.name = "Sir No Name"; // need to add random name generated names
+        this.maxHealth = 10;
+        this.currentHealth = 10;
+        this.weapon = WeaponTypes.NONE;
+        this.weaponMaterial = WeaponMaterialEnum.NONE;
+        this.disease = DiseaseEnum.NONE;
+    }
+    Player(String name) { // use if player specifies name
+        this.name = name;
+        this.maxHealth = 10;
+        this.currentHealth = 10;
+        this.weapon = WeaponTypes.NONE;
+        this.weaponMaterial = WeaponMaterialEnum.NONE;
+        this.disease = DiseaseEnum.NONE;
+    }
 }
