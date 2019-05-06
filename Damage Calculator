@@ -1,0 +1,230 @@
+import java.util.Random;
+public class DamageCalc {
+    Random r = new Random();
+    int calculateDamage(Player player, Monster monster){ // positive int = player wins, negative int = monster wins
+        int monsterBase = monster.power;
+        int personBase = 5; // possibly add power attribute to player
+        if (monster.type == MonsterEnum.BRUTE) {
+            if (player.weapon == WeaponTypes.SWORD) { // Neutral for player
+                if (player.weaponMaterial == WeaponMaterialEnum.CARDBOARD) {
+                    personBase += 0;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.PLASTIC) {
+                        personBase += 5;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.WOOD) {
+                        personBase += 10;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.STONE) {
+                        personBase += 25;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.CRYSTALMEGASUPERWEAPON) {
+                        monsterBase += 300;
+                }
+            }
+            if (player.weapon == WeaponTypes.AXE) { // Good for player
+                if (player.weaponMaterial == WeaponMaterialEnum.CARDBOARD) {
+                    personBase += 5;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.PLASTIC) {
+                    personBase += 10;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.WOOD) {
+                    personBase += 20;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.STONE) {
+                    personBase += 50;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.CRYSTALMEGASUPERWEAPON) {
+                    monsterBase += 300;
+                }
+            }
+            if (player.weapon == WeaponTypes.SPEAR) { // Does negative effects for player in battle
+                if (player.weaponMaterial == WeaponMaterialEnum.CARDBOARD) {
+                    monsterBase += 40;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.PLASTIC) {
+                    monsterBase += 20;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.WOOD) {
+                    monsterBase += 10;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.STONE) {
+                    monsterBase += 5;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.CRYSTALMEGASUPERWEAPON) {
+                    monsterBase += 300;
+                }
+            }
+        }
+        if (monster.type == MonsterEnum.BEAST) {
+            if (player.weapon == WeaponTypes.AXE) { // Neutral for Player
+                if (player.weaponMaterial == WeaponMaterialEnum.CARDBOARD) {
+                    personBase += 0; // completely neutral
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.PLASTIC) {
+                    personBase += 5;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.WOOD) {
+                    personBase += 10;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.STONE) {
+                    personBase += 25;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.CRYSTALMEGASUPERWEAPON) {
+                    monsterBase += 300;
+                }
+            }
+            if (player.weapon == WeaponTypes.SPEAR) { // Good for Player
+                if (player.weaponMaterial == WeaponMaterialEnum.CARDBOARD) {
+                    personBase += 5; // completely neutral
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.PLASTIC) {
+                    personBase += 10;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.WOOD) {
+                    personBase += 20;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.STONE) {
+                    personBase += 50;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.CRYSTALMEGASUPERWEAPON) {
+                    monsterBase += 300;
+                }
+            }
+            if (player.weapon == WeaponTypes.SWORD) { // Does negative effects for player in battle
+                if (player.weaponMaterial == WeaponMaterialEnum.CARDBOARD) {
+                    monsterBase += 40;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.PLASTIC) {
+                    monsterBase += 20;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.WOOD) {
+                    monsterBase += 10;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.STONE) {
+                    monsterBase += 5;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.CRYSTALMEGASUPERWEAPON) {
+                    monsterBase += 300;
+                }
+            }
+        }
+        if (monster.type == MonsterEnum.NINJA) {
+            if (player.weapon == WeaponTypes.SPEAR) { // Neutral for Player
+                if (player.weaponMaterial == WeaponMaterialEnum.CARDBOARD) {
+                    personBase += 0; // completely neutral
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.PLASTIC) {
+                    personBase += 5;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.WOOD) {
+                    personBase += 10;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.STONE) {
+                    personBase += 25;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.CRYSTALMEGASUPERWEAPON) {
+                    monsterBase += 300;
+                }
+            }
+            if (player.weapon == WeaponTypes.SWORD) { // Good for Player
+                if (player.weaponMaterial == WeaponMaterialEnum.CARDBOARD) {
+                    personBase += 5; // completely neutral
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.PLASTIC) {
+                    personBase += 10;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.WOOD) {
+                    personBase += 20;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.STONE) {
+                    personBase += 50;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.CRYSTALMEGASUPERWEAPON) {
+                    monsterBase += 300;
+                }
+            }
+            if (player.weapon == WeaponTypes.AXE) { // Does negative effects for player in battle
+                if (player.weaponMaterial == WeaponMaterialEnum.CARDBOARD) {
+                    monsterBase += 40;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.PLASTIC) {
+                    monsterBase += 20;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.WOOD) {
+                    monsterBase += 10;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.STONE) {
+                    monsterBase += 5;
+                }
+                if (player.weaponMaterial == WeaponMaterialEnum.CRYSTALMEGASUPERWEAPON) {
+                    monsterBase += 300;
+                }
+            }
+        }
+        return personBase - monsterBase;
+    }
+    void battleCalculator(Player player, Monster monster) {
+        int chance = r.nextInt(20); // chance for disease
+        int number = calculateDamage(player, monster);
+        if (number < 0) {
+            if ((chance == 0 || chance == 1) && (player.disease == DiseaseEnum.NONE)) { // chance for disease
+                if (monster.type == MonsterEnum.BRUTE) {
+                    player.disease = DiseaseEnum.CONCUSSION;
+                }
+                if (monster.type == MonsterEnum.NINJA) {
+                    if (chance == 0) {
+                        player.disease = DiseaseEnum.FPOISON;
+                    }
+                    if (chance == 1) {
+                        player.disease = DiseaseEnum.POISON;
+                    }
+                }
+                if (monster.type == MonsterEnum.BEAST) {
+                    player.disease = DiseaseEnum.BLEED;
+                }
+            }
+            if (number > -6 ) {
+                player.currentHealth -= 2; // lose 2 health
+                if (player.currentHealth < 0) { // if dead
+                        player.currentHealth = 0;
+                }
+                monster.currentHealth = (monster.currentHealth / 2) - 10;
+                if (monster.currentHealth < 0) {
+                        monster.currentHealth = 0;
+                }
+            }
+            if (number < -5  && number > -11) {
+                player.currentHealth -= 4; // lose 2 health
+                if (player.currentHealth < 0) { // if dead
+                    player.currentHealth = 0;
+                }
+                monster.currentHealth = (monster.currentHealth / 2) - 5;
+                if (monster.currentHealth < 0) {
+                    monster.currentHealth = 0;
+                }
+            }
+            if (number < -10  && number > -20) {
+                player.currentHealth -= 6; // lose 2 health
+                if (player.currentHealth < 0) { // if dead
+                    player.currentHealth = 0;
+                }
+                monster.currentHealth = monster.currentHealth - 5;
+                if (monster.currentHealth < 0) {
+                    monster.currentHealth = 0;
+                }
+            }
+            if ( number < -19) {
+                player.currentHealth -= 8; // lose 2 health
+                if (player.currentHealth < 0) { // if dead
+                    player.currentHealth = 0;
+                }
+                monster.currentHealth = monster.currentHealth - 2;
+                if (monster.currentHealth < 0) {
+                    monster.currentHealth = 0;
+                }
+            }
+        }
+    }
+}
