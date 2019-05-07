@@ -6,8 +6,8 @@ public class Map {
     char heart = '♥';
     char halfHeart = '♡';
     double health = 4.5; // read in later when done with character;
-    int wholeHearts = (int)heart;
-    int halfHearts;
+    int wholeHearts = (int)health;
+    double halfHearts = health - wholeHearts;
 
 
     public static void main(String[] args) {
@@ -30,9 +30,19 @@ public class Map {
 
     public void printMap() {
         // need name
-        // need health bar
         // need weapons report
-
+        
+        //health
+        System.out.printf("Health: ");
+        for (int i = 0; i < wholeHearts; i ++) {
+            System.out.printf(heart + " ");
+        }
+        if (halfHearts != 0) {
+            System.out.printf(halfHeart + "");
+        }
+        System.out.println();
+        //health
+        
         for (int i = 0; i < map.length; i++) { // print tiles in map
             for (int j = 0; j < map[i].length; j++){
             System.out.print(map[i][j]);
