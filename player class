@@ -1,3 +1,4 @@
+import java.util.Random;
 public class Player {
     String name;
     double currentHealth;
@@ -5,13 +6,19 @@ public class Player {
     WeaponTypes weapon;
     WeaponMaterialEnum weaponMaterial;
     DiseaseEnum disease;
+    String[] nameBank = new String[]{"Monk Rawlin", "Chancellor Jurgan III", "Chancellor Jurgan II", "Lord Clark Edith"
+            + "Duke Xexix Rolland", "Monk Ass Cheeks", "Sir Ramnius Lionbreath", "Mountain Man Gregg", "Tony Stark"
+    + "Darrell Big-Dick Woffard", "Jonsey Bitch-Boy Johnson", "Darious Lennord", "Lenorys Tindleward", "Adene Willyiams",
+    "Poppy Poppers Penguin Trainer"};
+    Random r = new Random(nameBank.length);
+    int n = r.nextInt(10); // need a name bank
     // need backpack and shiz
     Player() {
-        this.name = "Sir No Name"; // need to add random name generated names
+        this.name = nameBank[n];
         this.maxHealth = 10;
         this.currentHealth = 10;
         this.weapon = WeaponTypes.NONE;
-        this.weaponMaterial = WeaponMaterialEnum.NONE;
+        this.weaponMaterial = WeaponMaterialEnum.CARDBOARD; // default material
         this.disease = DiseaseEnum.NONE;
     }
     Player(String name) { // use if player specifies name
@@ -19,7 +26,7 @@ public class Player {
         this.maxHealth = 10;
         this.currentHealth = 10;
         this.weapon = WeaponTypes.NONE;
-        this.weaponMaterial = WeaponMaterialEnum.NONE;
+        this.weaponMaterial = WeaponMaterialEnum.CARDBOARD; // default material
         this.disease = DiseaseEnum.NONE;
     }
 }
