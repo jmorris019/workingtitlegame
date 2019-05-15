@@ -1,0 +1,18 @@
+import java.util.Random;
+public class NameBases {
+    Random r = new Random();
+    String getMarketName() {
+    String[] nameBase = {"Francisco", "Andrelton", "Aldemys", "Jorge", "Marwin", "Jurickson", "Amed", "Carlos",
+            "Eduardo", "Jean", "Charlie", "Manny", "Kentel", "Asdrubal"};
+    int n = r.nextInt(nameBase.length);
+    return nameBase[n];
+    }
+    String getPlayerName() {
+        String[] nameBank = new String[]{"Monk Rawlin", "Chancellor Jurgan III", "Chancellor Jurgan II", "Lord Clark Edith"
+                ,"Duke Xexix Rolland", "Monk Ass Cheeks", "Sir Ramnius Lionbreath", "Mountain Man Gregg", "Tony Stark",
+                 "Darrell Big-Dick Woffard", "Jonsey Bitch-Boy Johnson", "Darious Lennord", "Lenorys Tindleward", "Adene Willyiams",
+                "Poppy Poppers Penguin Trainer"};
+        int n = r.nextInt(nameBank.length);
+        return nameBank[n];
+    }
+}
