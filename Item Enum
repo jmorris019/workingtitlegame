@@ -1,3 +1,21 @@
+import java.util.Random;
 public enum Items {
-    POISONANTEDOTE, BANDAGE, ASPIRIN, COFFEE, SCANNER, FOOD, ENERGYDRINK, PIGGYBANK
+    POISONANTEDOTE("Poison Antidote", 5)
+    , BANDAGE("Bandage", 5)
+    , ASPIRIN("Aspirin", 5)
+    , COFFEE("Coffee", 5)
+    , SCANNER("Scanner", 10)
+    , CHICKENPARM("Chicken Parm", 2)
+    , ENERGYDRINK("Creatine", 10)
+    , NONE ("__", 0);
+    private String description;
+    private int price;
+    Items(String description, int price) {
+    this.description = description;
+    this.price = price;
+    }
+    public int getPrice() {return price;}
+    public String getDescription(){
+        return description;
+    }
 }
