@@ -1,25 +1,30 @@
-import java.util.Random;
-public class Player {
+public class Player{
     String name;
     double currentHealth;
     double maxHealth;
     WeaponTypes weapon;
     WeaponMaterialEnum weaponMaterial;
     DiseaseEnum disease;
-    String[] nameBank = new String[]{"Monk Rawlin", "Chancellor Jurgan III", "Chancellor Jurgan II", "Lord Clark Edith"
-            + "Duke Xexix Rolland", "Monk Ass Cheeks", "Sir Ramnius Lionbreath", "Mountain Man Gregg", "Tony Stark"
-    + "Darrell Big-Dick Woffard", "Jonsey Bitch-Boy Johnson", "Darious Lennord", "Lenorys Tindleward", "Adene Willyiams",
-    "Poppy Poppers Penguin Trainer"};
-    Random r = new Random(nameBank.length);
-    int n = r.nextInt(10); // need a name bank
-    // need backpack and shiz
+    int money;
+    Items[] backpack;
+    NameBases n = new NameBases();
+    Items[] newBackPack() { // give backpack size of 4 and fill with empty slots
+        Items[] bp = new Items[4];
+        for (int i = 0; i < bp.length; i++) {
+            bp[i] = Items.NONE;
+        }
+        return bp;
+    }
+    
     Player() {
-        this.name = nameBank[n];
+        this.name = n.getPlayerName();
         this.maxHealth = 10;
         this.currentHealth = 10;
         this.weapon = WeaponTypes.NONE;
         this.weaponMaterial = WeaponMaterialEnum.CARDBOARD; // default material
         this.disease = DiseaseEnum.NONE;
+        this.money = 10; // starting cash
+        this.backpack = newBackPack();
     }
     Player(String name) { // use if player specifies name
         this.name = name;
@@ -28,5 +33,13 @@ public class Player {
         this.weapon = WeaponTypes.NONE;
         this.weaponMaterial = WeaponMaterialEnum.CARDBOARD; // default material
         this.disease = DiseaseEnum.NONE;
+        this.money = 10; // starting cash
+        this.backpack = newBackPack();
+    }
+    void printBackpack() {
+        System.out.println("Current balance: " + this.money);
+        for (int i = 0; i < this.backpack.length; i++) {
+            System.out.println((i + 1) + ".) " + backpack[i].getDescription());
+        }
     }
 }
