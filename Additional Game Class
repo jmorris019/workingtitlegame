@@ -1,0 +1,139 @@
+import java.text.ParseException;
+import java.util.Scanner;
+public class RunGame {
+    NameBases n = new NameBases();
+    Scanner s = new Scanner(System.in);
+    Player user;
+    public RunGame() {
+    }
+    void marketTransaction() { // either buy or sell items
+        Market m = new Market();
+        /*
+         if tile = city
+         Market m = new Market(true);
+         */
+        System.out.println("Welcome to " + m.marketName + "'s Market!");
+        while (true) {
+            int selection;
+            while (true) { // to make sure input is valid
+                System.out.println("What would you like to do?");
+                System.out.printf("1.) Buy items\n 2.) Sell Item\n 3.) Exit\n");
+                String choice = s.nextLine();
+                try {
+                    selection = Integer.parseInt(choice);
+                    if (selection > 0 && selection < 4) {
+                        break;
+                    }
+                } catch (Exception e) {
+                }
+                System.out.println("Entry not valid!");
+            }
+            switch (selection) {
+                case 1: // buy items
+                    int firstEmptySlot = 999;
+                    for (int i = 0; i < user.backpack.length; i++) {
+                        if (user.backpack[i] == Items.NONE) {
+                            firstEmptySlot = i; // set first empty slot and break out of for loop
+                            break; // break out of for loop
+                        }
+                    }
+                    if (firstEmptySlot != 999) {
+                        m.printMarketMenu();
+                        while (!s.hasNextInt()) {
+                            System.out.println("Not a number!");
+                            s.next();
+                        }
+                        int choice = s.nextInt();
+                        m.buyItem(user, choice, firstEmptySlot);
+                    } else {
+                        System.out.println("Backpack is full!");
+                    }
+                    break; // break out of switch statement
+                case 2: // sell items
+                    int exit = user.backpack.length + 1;
+                    System.out.println("Select item you would like to sell");
+                    user.printBackpack();
+                    System.out.println(exit + ".) Exit");
+                    int choice;
+                    while (true) {
+                        while (!s.hasNextInt()) {
+                            System.out.println("Not a number!");
+                            s.next();
+                        }
+                        choice = s.nextInt();
+                        if (choice > 0 && choice <= user.backpack.length + 1) {
+                            break;
+                        }
+                        System.out.println("Not a valid option!");
+                    }
+                    if (choice == exit) {
+                        System.out.println("Exiting!");
+                        break;
+                    }
+                    if (user.backpack[choice -1] == Items.NONE) {
+                        System.out.println("Nothing to sell!");
+                        break;
+                    }
+                    user.money += user.backpack[choice - 1].getPrice() / 2; // price of item / 2
+                    user.backpack[choice - 1] = Items.NONE; // set item to empty
+                    System.out.println("Sold! Balance is now " + user.money);
+                    break; // break out of switch statement
+                case 3: // exit
+                    System.out.println("Goodbye!");
+                    break;
+            }
+            if (selection == 3) {
+                break; // get out of market transaction
+            }
+        }
+    }
+    void startGame() {
+        System.out.println("Welcome weary traveler! The land of Aidan's backyard is under-seige by monsters!");
+        System.out.println("We need your help to take back all four cities to reclaim our kingdom.");
+        System.out.println("What is your name? (Press enter for random name)");
+        String name = s.nextLine();
+        if (!name.isEmpty()) { // input isn't empty. If input is empty, then the name will continue to be randomized
+            user = new Player(name);
+        }
+        else {
+            user = new Player();
+        }
+        System.out.println("Welcome " + user.name + "! Which weapon will you choose to assist you on your quest?");
+        int nChoice;
+        while (true) {
+            System.out.printf("1.) Sword\n2.) Spear\n3.) Axe\n");
+            String choice = s.nextLine();
+            try {
+               nChoice = Integer.parseInt(choice);
+                if (nChoice > 0 && nChoice < 4) {
+                    break;
+                }
+            } catch (Exception e) {
+            }
+            System.out.println("Entry not valid!");
+        }
+        String descriptor = ""; // to describe the weapon the user chose
+        switch (nChoice) {
+            case 1 :
+                user.weapon = WeaponTypes.SWORD;
+                descriptor = "crusty";
+            break;
+            case 2:
+                user.weapon = WeaponTypes.SPEAR;
+                descriptor = "dinky";
+            break;
+            case 3:
+                user.weapon = WeaponTypes.AXE;
+                descriptor = "fucking heavy";
+        }
+
+        System.out.println("You've chosen the " + descriptor + " " + user.weapon.name().toLowerCase() + "! Now slay" +
+                " some monsters and take back Aidan's backyard!");
+    }
+
+    public static void main(String[] args) {
+        RunGame r = new RunGame();
+        r.startGame();
+        r.marketTransaction();
+    }
+}
