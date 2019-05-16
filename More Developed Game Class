@@ -6,27 +6,28 @@ public class RunGame {
     Player user;
     public RunGame() {
     }
-    void marketTransaction() { // either buy or sell items
-        Market m = new Market();
-        /*
-         if tile = city
-         Market m = new Market(true);
-         */
-        System.out.println("Welcome to " + m.marketName + "'s Market!");
+    void gameInProgress(Player player) {
+        user.printUpdate();
+        System.out.println("Which would you like to do?");
+        System.out.printf("1.) Open Backpack / Use items\n2.) Move\n3.) Check Statistics");
+    }
+    void marketTransaction(Market m) { // either buy or sell items
+        //  argument determines if city market or not
+        System.out.println("Welcome to " + m.marketName);
         while (true) {
             int selection;
             while (true) { // to make sure input is valid
                 System.out.println("What would you like to do?");
-                System.out.printf("1.) Buy items\n 2.) Sell Item\n 3.) Exit\n");
-                String choice = s.nextLine();
-                try {
-                    selection = Integer.parseInt(choice);
-                    if (selection > 0 && selection < 4) {
-                        break;
-                    }
-                } catch (Exception e) {
-                }
-                System.out.println("Entry not valid!");
+                System.out.printf("1.) Buy items\n2.) Sell Items\n3.) Exit\n");
+               while (!s.hasNextInt()) {
+                   System.out.println("Not a number!");
+                   s.next();
+               }
+               selection = s.nextInt();
+               if (selection > 0 && selection < 4) {
+                   break;
+               }
+                System.out.println("Not a valid option!");
             }
             switch (selection) {
                 case 1: // buy items
@@ -134,6 +135,9 @@ public class RunGame {
     public static void main(String[] args) {
         RunGame r = new RunGame();
         r.startGame();
-        r.marketTransaction();
+        r.marketTransaction(new Market());
+        /*
+        Will pretty much start game, and then have a while loop with one other method calling to other methods
+         */
     }
 }
