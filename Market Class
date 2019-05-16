@@ -11,7 +11,7 @@ public class Market {
     int[] itemPrices = new int[marketSize];
     Random r = new Random();
     Market() {
-        this.marketName = n.getMarketName() + " Market!";
+        this.marketName = n.getMarketName() + "'s Market!";
         marketSize = 3;
         int item1 = r.nextInt(7);
         int item2 = r.nextInt(7);
@@ -210,7 +210,7 @@ public class Market {
             }
         }
     Market(boolean isCityMarket) {
-        this.marketName = n.getMarketName() + " City Market!";
+        this.marketName = n.getMarketName() + "'s City Market!";
         this.isCityMarket = isCityMarket;
         if (isCityMarket) {
             marketSize = 5;
@@ -476,6 +476,9 @@ public class Market {
     void printMarketMenu(){
         System.out.println("Items:");
          for (int i = 0; i < marketSize; i++) {
+             if (itemArray[i] == Items.NONE) {
+                 System.out.println((i+1) + ".) SOLD OUT");
+             } else
              System.out.println((i + 1) + ".) " + itemArray[i].getDescription() + ": " + itemPrices[i]);
         }
         System.out.println((marketSize + 1) + ".) Exit");
@@ -487,20 +490,24 @@ public class Market {
             System.out.println("Exiting!");
             return;
         }
-        if (selection < 0 || selection > itemArray.length + 1) {
+        if (selection < 0 || selection > itemArray.length + 1) { // If number typed in isn't a choice
             System.out.println("Not a valid item!");
             return;
         }
-        else if (user.money - itemPrices[selection -1] < 0) {
+       if (itemArray[selection -1] == Items.NONE) { // Don't allow player to buy a sold out item
+            System.out.println("You can't buy what's not there ese!");
+            return;
+        }
+        if (user.money - itemPrices[selection -1] < 0) {
             System.out.println("You don't have enough money for that punk!");
             return;
         }
-        else {
-            System.out.println("You've bought " + itemArray[selection -1].getDescription() + "!");
-            System.out.println("Pleasure doing business... Balance is now " + user.money);
-            user.money = user.money - itemPrices[selection -1]; // subtract from players funds
-            user.backpack[backpackSpace] = itemArray[selection -1]; // add item to users backpack
-        }
+        System.out.println("You've bought " + itemArray[selection -1].getDescription() + "!");
+        user.money = user.money - itemPrices[selection -1]; // subtract from players funds
+        System.out.println("Pleasure doing business... Balance is now " + user.money);
+        user.backpack[backpackSpace] = itemArray[selection -1]; // add item to users backpack
+        itemArray[selection -1] = Items.NONE; // Sell out the item
+        itemPrices[selection -1] = Items.NONE.getPrice(); // Set price to 0
     }
     public static void main(String[] args) {
         Market test = new Market(true);
