@@ -3,13 +3,29 @@ import java.util.Scanner;
 public class RunGame {
     NameBases n = new NameBases();
     Scanner s = new Scanner(System.in);
-    Player user;
+    static Player user;
     public RunGame() {
     }
     void gameInProgress(Player player) {
         user.printUpdate();
         System.out.println("Which would you like to do?");
-        System.out.printf("1.) Open Backpack / Use items\n2.) Move\n3.) Check Statistics");
+        int selection;
+        while (true) {
+            System.out.printf("1.) Open Backpack / Use items\n2.) Move\n3.) Check Statistics");
+            while (!s.hasNextInt()) {
+                System.out.println("Not a number!");
+                s.next();
+            }
+            selection = s.nextInt();
+            if (selection > 0 && selection < 4) {
+                break;
+            }
+        }
+        switch (selection) {
+            case 1: // Open Backpack and use items
+                user.openBackpack();
+                break;
+        }
     }
     void marketTransaction(Market m) { // either buy or sell items
         //  argument determines if city market or not
@@ -135,7 +151,7 @@ public class RunGame {
     public static void main(String[] args) {
         RunGame r = new RunGame();
         r.startGame();
-        r.marketTransaction(new Market());
+        r.gameInProgress(user);
         /*
         Will pretty much start game, and then have a while loop with one other method calling to other methods
          */
