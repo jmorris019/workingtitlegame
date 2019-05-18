@@ -1,4 +1,6 @@
-public class Player{
+import java.util.Scanner;
+public class Player {
+    Scanner s = new Scanner(System.in);
     String name;
     double currentHealth;
     double maxHealth;
@@ -8,6 +10,7 @@ public class Player{
     int money;
     Items[] backpack;
     NameBases n = new NameBases();
+
     Items[] newBackPack() { // give backpack size of 4 and fill with empty slots
         Items[] bp = new Items[4];
         for (int i = 0; i < bp.length; i++) {
@@ -26,6 +29,7 @@ public class Player{
         this.money = 10; // starting cash
         this.backpack = newBackPack();
     }
+
     Player(String name) { // use if player specifies name
         this.name = name;
         this.maxHealth = 10;
@@ -36,29 +40,164 @@ public class Player{
         this.money = 10; // starting cash
         this.backpack = newBackPack();
     }
+
     void printBackpack() {
-        System.out.println("Current balance: " + this.money);
+        System.out.println("/********** " + name + "'s Backpack **********/");
+        System.out.println("Current balance: " + this.money + "         Disease Status: " + this.disease.getAbbreviation());
         for (int i = 0; i < this.backpack.length; i++) {
             System.out.println((i + 1) + ".) " + backpack[i].getDescription());
         }
+        System.out.println("Exit: " + backpack.length + 1);
+        System.out.println("/******************************/");
     }
-    void printUpdate() {
-        char heart = '♥';
-        char halfHeart = '♡';
-        int wholeHearts = (int)currentHealth;
-        double halfHearts = currentHealth - wholeHearts;
-        System.out.println("/********************/"); // start update
-        System.out.printf(this.name + ": ");
-        for (int i = 0; i < wholeHearts; i ++) {
-            System.out.printf(heart + " ");
+
+    void openBackpack() {
+        printBackpack();
+        System.out.println("What would you like to do?");
+        int selection; // to ensure valid entry
+        while (true) {
+            System.out.printf("1.) Use item\n2.) Exit");
+            while (!s.hasNextInt()) {
+                System.out.println("Not a number!");
+                s.next();
+            }
+            selection = s.nextInt();
+            if (selection > 0 && selection < 3) {
+                break;
+            }
+            System.out.println("Not a valid option!");
         }
-        if (halfHearts != 0) {
-            System.out.printf(halfHeart + "");
+        switch (selection) {
+            case 1: // Use item
+                int itemSelection;
+                while (true) {
+                    while (true) {
+                        System.out.println("Choose item you would like to use");
+                        while (!s.hasNextInt()) {
+                            System.out.println("Not a number!");
+                            s.next();
+                        }
+                        itemSelection = s.nextInt();
+                        if (itemSelection > 0 && itemSelection < backpack.length + 2) {
+                            break;
+                        }
+                        System.out.println("Not a valid option!");
+                    }
+                    if (itemSelection == backpack.length + 2) { // if they want to exit
+                        System.out.println("Exiting!");
+                        break;
+                    }
+                    if (checkIfValidItem(itemSelection)) { // if it is a valid option
+                        break;
+                    }
+                }
+            case 2:
+                System.out.println("Exiting!");
+                break;
         }
-        System.out.println();
-        System.out.println("Money: " + money);
-        System.out.println("Current Weapon: " + weaponMaterial.toString().toLowerCase() + " " + weapon.toString().toLowerCase());
-        System.out.println("/********************/"); // end update
-        System.out.println();
     }
-}
+        void printUpdate () {
+            char heart = '♥';
+            char halfHeart = '♡';
+            int wholeHearts = (int) currentHealth;
+            double halfHearts = currentHealth - wholeHearts;
+            System.out.println("/********************/"); // start update
+            System.out.printf(this.name + ": ");
+            for (int i = 0; i < wholeHearts; i++) {
+                System.out.printf(heart + " ");
+            }
+            if (halfHearts != 0) {
+                System.out.printf(halfHeart + "");
+            }
+            System.out.println();
+            System.out.println("Money: " + money + "        Disease: " + disease.getAbbreviation());
+            System.out.println("Current Weapon: " + weaponMaterial.toString().toLowerCase() + " " + weapon.toString().toLowerCase());
+            System.out.println("/********************/"); // end update
+            System.out.println();
+        }
+        boolean checkIfValidItem(int selection) {
+            selection = selection - 1; // reset for bag
+            Items items = backpack[selection];
+            switch (items) {
+                case NONE:
+                    System.out.println("No item to use!");
+                    return false;
+                case ENERGYDRINK:
+                    System.out.println("Max health increased by 5!");
+                    maxHealth = maxHealth + 5;
+                    if ((currentHealth + 5) > maxHealth) { // if it would go over max health
+                        currentHealth = maxHealth;
+                    } else {
+                        currentHealth = currentHealth + 5; // increase current health by 5
+                    }
+                    System.out.println("Max health: " + maxHealth);
+                    backpack[selection] = Items.NONE; // use item, remove from backpack
+                    return true;
+                case CHICKENPARM:
+                    if (currentHealth == maxHealth) {
+                        System.out.println("Already max health!");
+                        return false;
+                    } else {
+                        if ((currentHealth + 2) > maxHealth) {
+                            currentHealth = maxHealth;
+                        } else {
+                            currentHealth = currentHealth + 2;
+                        }
+                        System.out.println("Current Health: " + currentHealth);
+                        return true;
+                    }
+                    backpack[selection] = Items.NONE; // use item, remove from backpack
+                case SCANNER:
+                    System.out.println("Scanning Shit! (We haven't implemented this yet)");
+                    backpack[selection] = Items.NONE; // use item, remove from backpack
+                    return true;
+                case ASPIRIN:
+                    if (disease == DiseaseEnum.CONCUSSION) { // if they have a concussion
+                        System.out.println("Concussion is cured!");
+                        disease = DiseaseEnum.NONE; // restore condition
+                        backpack[selection] = Items.NONE; // use item, remove from backpack
+                        return true;
+                    } else {
+                        System.out.println("Now isn't the time to use this bub!");
+                        return false;
+                    }
+                case BANDAGE:
+                    if (disease == DiseaseEnum.BLEED) {
+                        System.out.println("Bleeding has stopped!");
+                        disease = DiseaseEnum.NONE; // restore condition
+                        backpack[selection] = Items.NONE; // use item, remove from backpack
+                        return true;
+                    } else {
+                        System.out.println("Now isn't the time to use this bub!");
+                        return false;
+                    }
+                case COFFEE:
+                    if (disease == DiseaseEnum.DROWSY) {
+                        System.out.println("You feel more alert!");
+                        disease = DiseaseEnum.NONE; // restore condition
+                        backpack[selection] = Items.NONE; // use item, remove from backpack
+                        return true;
+                    } else {
+                        System.out.println("Now isn't the time to use this bub!");
+                        return false;
+                    }
+                case POISONANTEDOTE:
+                    if (disease == DiseaseEnum.FPOISON) {
+                        System.out.println("You feel better, but still sick...");
+                        disease = DiseaseEnum.POISON; // Fatal poison turns into regular poison
+                        backpack[selection] = Items.NONE; // use item, remove from backpack
+                        return true;
+                    }
+                    if (disease == DiseaseEnum.POISON) {
+                        System.out.println("You feel healthy once again!");
+                        disease = DiseaseEnum.NONE; // restore condition
+                        backpack[selection] = Items.NONE; // use item, remove from backpack
+                        return true;
+                    }
+                    System.out.println("Now isn't the time to use this bub!");
+                    return false;
+            }
+            return false; // should never reach this stage
+        }
+    }
+
