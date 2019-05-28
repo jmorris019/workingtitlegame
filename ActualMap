@@ -22,10 +22,20 @@ public class ActualMap {
             }
         }
     }
+    /*
+      Function that finds the players location within the map and then returns its coordinates
+     */
+    Point getPlayerLocation() {
+        Point p;
+        for (int i = 0; i < map.length; i++) {
+            for (int j = 0; j < map[i].length; j++) {
+                if (map[i][j].type instanceof Player) {
+                    return new Point(i, j); // return where it was found
+                }
+            }
+            }
+        System.out.println("Shit, no player found. These developers blow");
+        return new Point(999,999);
+    } // getPlayerLocation()
 
-    public static void main(String[] args) {
-        ActualMap m = new ActualMap();
-        m.fillMap();
-        m.printMap();
-    }
 }
