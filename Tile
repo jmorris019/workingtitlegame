@@ -1,0 +1,42 @@
+import java.util.Random;
+public class Tile {
+    String name;
+    Object type;
+    char tileImage;
+    Random r = new Random();
+
+    Tile(Object type ){
+        if (type instanceof Player) { // if player
+            this.type = type;
+            this.name = ((Player) type).name;
+            this.tileImage = '⍥';
+        }
+        if (type instanceof Monster) { // if it is a monster
+            this.type = type;
+            this.name = "Monster";
+            this.tileImage = '☠';
+        }
+        if (type instanceof Market) { // if it is a market
+            this.type = type;
+            this.name = "Market";
+            this.tileImage = '☯';
+        }
+        if (type instanceof City) { // if city
+            this.type = type;
+            this.name = "City";
+            this.tileImage = '♛';
+        }
+    }
+    Tile() {
+        int chance = r.nextInt(10);
+        if (chance == 9) { // 1/10 chance that it is a market
+            this.type = new Market();
+            this.name = "Market";
+            this.tileImage = '☯';
+        } else { // probably going to be a monster
+            this.type = new Monster();
+            this.name = "Monster";
+            this.tileImage = '☠';
+        }
+    }
+}
