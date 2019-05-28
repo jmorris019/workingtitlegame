@@ -1,0 +1,17 @@
+public class City {
+    String name;
+    String dialog;
+    Market market;
+    Monster boss;
+    Items[] prizes; // reward for winning
+    City() {
+        this.name = "City";
+    }
+    City(String name, String dialog, Market market, Monster boss, Items[] prizes) { // need to further develop
+        this.name = name;
+        this.dialog = dialog;
+        this.market = market;
+        this.boss = boss;
+        this.prizes = prizes;
+    }
+}
