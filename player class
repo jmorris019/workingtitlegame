@@ -7,6 +7,7 @@ public class Player {
     WeaponTypes weapon;
     WeaponMaterialEnum weaponMaterial;
     DiseaseEnum disease;
+    int fPoisonCounter;
     int money;
     Items[] backpack;
     NameBases n = new NameBases();
@@ -25,6 +26,7 @@ public class Player {
         this.currentHealth = 10;
         this.weapon = WeaponTypes.NONE;
         this.weaponMaterial = WeaponMaterialEnum.CARDBOARD; // default material
+        this.fPoisonCounter = 0;
         this.disease = DiseaseEnum.NONE;
         this.money = 10; // starting cash
         this.backpack = newBackPack();
@@ -36,6 +38,7 @@ public class Player {
         this.currentHealth = 10;
         this.weapon = WeaponTypes.NONE;
         this.weaponMaterial = WeaponMaterialEnum.CARDBOARD; // default material
+        this.fPoisonCounter = 0;
         this.disease = DiseaseEnum.NONE;
         this.money = 10; // starting cash
         this.backpack = newBackPack();
@@ -96,7 +99,7 @@ public class Player {
                 break;
         }
     }
-        void printUpdate () {
+        void printUpdate ( ActualMap map) {
             char heart = '♥';
             char halfHeart = '♡';
             int wholeHearts = (int) currentHealth;
@@ -114,6 +117,15 @@ public class Player {
             System.out.println("Current Weapon: " + weaponMaterial.toString().toLowerCase() + " " + weapon.toString().toLowerCase());
             System.out.println("/********************/"); // end update
             System.out.println();
+            map.printMap();
+        }
+        void diseaseAction() {
+            if (this.disease == DiseaseEnum.POISON) {
+                this.currentHealth =- 2;
+            }
+            if (this.disease == DiseaseEnum.FPOISON) {
+                this.currentHealth = this.currentHealth - ++fPoisonCounter; // increments poison
+            }
         }
         boolean checkIfValidItem(int selection) {
             selection = selection - 1; // reset for bag
@@ -137,16 +149,17 @@ public class Player {
                     if (currentHealth == maxHealth) {
                         System.out.println("Already max health!");
                         return false;
-                    } else {
+                    }  else {
                         if ((currentHealth + 2) > maxHealth) {
                             currentHealth = maxHealth;
                         } else {
                             currentHealth = currentHealth + 2;
                         }
                         System.out.println("Current Health: " + currentHealth);
+                        backpack[selection] = Items.NONE; // use item, remove from backpack
                         return true;
                     }
-                    backpack[selection] = Items.NONE; // use item, remove from backpack
+
                 case SCANNER:
                     System.out.println("Scanning Shit! (We haven't implemented this yet)");
                     backpack[selection] = Items.NONE; // use item, remove from backpack
