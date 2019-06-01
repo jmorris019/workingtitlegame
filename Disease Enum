@@ -1,3 +1,8 @@
 public enum DiseaseEnum {
-    POISON, FPOISON, BLEED, DROWSY, CONCUSSION, NONE;
+    POISON("P"), FPOISON("FP"), BLEED("B"), DROWSY("D"), CONCUSSION("C"), NONE("__");
+    private String abbreviation;
+    DiseaseEnum(String abbreviation) {
+        this.abbreviation = abbreviation;
+    }
+    public String getAbbreviation() { return abbreviation;}
 }
