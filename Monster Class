@@ -6,7 +6,7 @@ public class Monster{
     double maxHealth;
     int power;
     double diseaseChance;
-    DiseaseEnum diseaseCarried;
+    DiseaseEnum diseaseCarried; // no monsters atm carry any disease chances
     Monster(String name, MonsterEnum type, double currentHealth, double maxHealth, int power, double diseaseChance, DiseaseEnum diseaseCarried){
             this.name = name;
             this.type = type;
@@ -86,7 +86,7 @@ public class Monster{
             this.diseaseChance = 0;
             this.diseaseCarried = DiseaseEnum.NONE;
         }
-        if (random == 1) { 
+        if (random == 1) {
             this.name = "Ninja Jack";
             this.type = MonsterEnum.NINJA;
             this.currentHealth = 10;
