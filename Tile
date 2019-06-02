@@ -3,31 +3,37 @@ public class Tile {
     String name;
     Object type;
     char tileImage;
+    boolean clearable;
     Random r = new Random();
-
+    // need to do something for a barren tile type
     Tile(Object type ){
+
         if (type instanceof Player) { // if player
             this.type = type;
             this.name = ((Player) type).name;
-            this.tileImage = '⍥';
+            this.tileImage = 'X';
+            this.clearable = false;
         }
         if (type instanceof Monster) { // if it is a monster
             this.type = type;
             this.name = "Monster";
             this.tileImage = '☠';
+            this.clearable = true;
         }
         if (type instanceof Market) { // if it is a market
             this.type = type;
             this.name = "Market";
             this.tileImage = '☯';
+            this.clearable = false;
         }
         if (type instanceof City) { // if city
             this.type = type;
             this.name = "City";
             this.tileImage = '♛';
+            this.clearable = false;
         }
     }
-    Tile() {
+    Tile() { // tile that can be either a monster or market randomized
         int chance = r.nextInt(10);
         if (chance == 9) { // 1/10 chance that it is a market
             this.type = new Market();
