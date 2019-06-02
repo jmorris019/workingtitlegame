@@ -1,35 +1,44 @@
 public class ActualMap {
-    Tile map[][] = new Tile[11][11];
-    void fillMap() {
-        for (int i = 0; i < map.length; i++) { // fill whole map with Monsters and Markets
-            for (int j = 0; j < map[i].length; j++){
-                map[i][j] = new Tile();
+    Tile mapCoordinates[][];
+    Point playerLocation;
+    ActualMap() {
+        this.mapCoordinates = new Tile[11][11];
+        this.playerLocation = new Point(5,5);
+    }
+    void fillMap(Player p) { // for game start
+        for (int i = 0; i < mapCoordinates.length; i++) { // fill whole map with Monsters and Markets
+            for (int j = 0; j < mapCoordinates[i].length; j++){
+                mapCoordinates[i][j] = new Tile();
             }
         }
-        Player p = new Player("Robbie");
         City c = new City(); // temporary, needs actual quality programming
-        map[5][5] = new Tile(p); // temporary New Player will move around freely
-        map[0][0] = new Tile(c); // make UL city
-        map[0][10] = new Tile(c); // make UR city
-        map[10][0] = new Tile(c); // make BL city
-        map[10][10] = new Tile(c); // make BR city
+        mapCoordinates[5][5] = new Tile(p); // temporar New Player will move around freelyy
+        mapCoordinates[0][0] = new Tile(c); // make UL city
+        mapCoordinates[0][10] = new Tile(c); // make UR city
+        mapCoordinates[10][0] = new Tile(c); // make BL city
+        mapCoordinates[10][10] = new Tile(c); // make BR city
     }
     void printMap() {
-        for (int i = 0; i < map.length; i++) {
+        for (int i = 0; i < mapCoordinates.length; i++) {
             System.out.println();
-            for (int j = 0; j < map[i].length; j++) {
-                System.out.printf(map[i][j].tileImage + " ");
+            for (int j = 0; j < mapCoordinates[i].length; j++) {
+                if ((i == this.playerLocation.x) && j == this.playerLocation.y) {
+                    System.out.printf("P ");
+                } else {
+                    System.out.printf(mapCoordinates[i][j].tileImage + " ");
+                }
             }
         }
+        System.out.println();
     }
     /*
       Function that finds the players location within the map and then returns its coordinates
      */
     Point getPlayerLocation() {
         Point p;
-        for (int i = 0; i < map.length; i++) {
-            for (int j = 0; j < map[i].length; j++) {
-                if (map[i][j].type instanceof Player) {
+        for (int i = 0; i < mapCoordinates.length; i++) {
+            for (int j = 0; j < mapCoordinates[i].length; j++) {
+                if (mapCoordinates[i][j].type instanceof Player) {
                     return new Point(i, j); // return where it was found
                 }
             }
