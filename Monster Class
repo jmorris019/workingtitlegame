@@ -7,6 +7,7 @@ public class Monster{
     int power;
     double diseaseChance;
     DiseaseEnum diseaseCarried; // no monsters atm carry any disease chances
+    NameBases n = new NameBases();
     Monster(String name, MonsterEnum type, double currentHealth, double maxHealth, int power, double diseaseChance, DiseaseEnum diseaseCarried){
             this.name = name;
             this.type = type;
@@ -47,7 +48,7 @@ public class Monster{
     }
     Monster(MonsterEnum type) {
         if (type == MonsterEnum.BRUTE) {
-            this.name = "Brutus";
+            this.name = n.getBruteName();
             this.type = type;
             this.currentHealth = 30;
             this.maxHealth = 30;
@@ -56,7 +57,7 @@ public class Monster{
             this.diseaseCarried = DiseaseEnum.NONE;
         }
         if (type == MonsterEnum.NINJA) {
-            this.name = "Ninja Jack";
+            this.name = n.getNinjaName();
             this.type = type;
             this.currentHealth = 10;
             this.maxHealth = 10;
@@ -65,7 +66,7 @@ public class Monster{
             this.diseaseCarried = DiseaseEnum.NONE;
         }
         if (type == MonsterEnum.BEAST) {
-            this.name = "Brad the Beast";
+            this.name = n.getBeastName();
             this.type = type;
             this.currentHealth = 20;
             this.maxHealth = 20;
@@ -78,7 +79,7 @@ public class Monster{
         Random r = new Random();
         int random = r.nextInt(3);
         if (random == 0) {
-            this.name = "Brutus";
+            this.name = n.getBruteName();
             this.type = MonsterEnum.BRUTE;
             this.currentHealth = 30;
             this.maxHealth = 30;
@@ -87,7 +88,7 @@ public class Monster{
             this.diseaseCarried = DiseaseEnum.NONE;
         }
         if (random == 1) {
-            this.name = "Ninja Jack";
+            this.name = n.getNinjaName();
             this.type = MonsterEnum.NINJA;
             this.currentHealth = 10;
             this.maxHealth = 10;
@@ -96,7 +97,7 @@ public class Monster{
             this.diseaseCarried = DiseaseEnum.NONE;
         }
         if (random == 2) {
-            this.name = "Brad the Beast";
+            this.name = n.getBeastName();
             this.type = MonsterEnum.BEAST;
             this.currentHealth = 20;
             this.maxHealth = 20;
