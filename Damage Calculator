@@ -163,9 +163,13 @@ public class DamageCalc {
                 }
             }
         }
+        if (player.disease == DiseaseEnum.BLEED) { // makes it harder to
+            personBase = personBase / 2;
+            System.out.println("You're still bleeding, this battle will be tough...");
+        }
         return personBase - monsterBase;
     }
-    void battleCalculator(Player player, Monster monster) {
+    boolean battleCalculator(Player player, Monster monster) {
         int chance = r.nextInt(20); // chance for disease
         int number = calculateDamage(player, monster);
         if (number < 0) {
@@ -196,7 +200,7 @@ public class DamageCalc {
                 }
             }
             if (number < -5  && number > -11) {
-                player.currentHealth -= 4; // lose 2 health
+                player.currentHealth -= 4; // lose 4 health
                 if (player.currentHealth < 0) { // if dead
                     player.currentHealth = 0;
                 }
@@ -206,7 +210,7 @@ public class DamageCalc {
                 }
             }
             if (number < -10  && number > -20) {
-                player.currentHealth -= 6; // lose 2 health
+                player.currentHealth -= 6; // lose 6 health
                 if (player.currentHealth < 0) { // if dead
                     player.currentHealth = 0;
                 }
@@ -216,7 +220,7 @@ public class DamageCalc {
                 }
             }
             if ( number < -19) {
-                player.currentHealth -= 8; // lose 2 health
+                player.currentHealth -= 8; // lose 8 health
                 if (player.currentHealth < 0) { // if dead
                     player.currentHealth = 0;
                 }
@@ -226,5 +230,49 @@ public class DamageCalc {
                 }
             }
         }
+        else {
+            monster.currentHealth =- monster.currentHealth; // kill monster
+        }
+        if (player.currentHealth <= 0) { // if monster kills player
+            System.out.println("You simply were no match for " + monster.name + ". Maybe next time...");
+            return false;
+        }
+        if (monster.currentHealth <= 0) { // if monster is dead
+            System.out.println(monster.name + " has been slayed! Hooraah!");
+            // Check to see if there is an empty slot in the players backpack
+            int firstEmptySlot = 999;
+            for (int i = 0; i < player.backpack.length; i++) {
+                if (player.backpack[i] == Items.NONE) {
+                    firstEmptySlot = i; // set first empty slot and break out of for loop
+                    break; // break out of for loop
+                }
+            }
+            if (firstEmptySlot != 999) {
+                Items droppedItem = Items.NONE;
+                switch (chance) {
+                    case 0: droppedItem = Items.ASPIRIN; break;
+                    case 1:
+                    case 2: droppedItem = Items.POISONANTEDOTE; break; // double chance for antidote
+                    case 3:
+                    case 4:
+                    case 5:
+                    case 6: droppedItem = Items.CHICKENPARM; break; // triple chance for chicken parm
+                    case 7: droppedItem = Items.ENERGYDRINK; break;
+                    case 8:
+                    case 9: droppedItem = Items.BANDAGE; break;
+                    case 10: droppedItem = Items.COFFEE; break;
+                }
+                if (droppedItem != Items.NONE) {
+                    System.out.println("You have picked up " + droppedItem.getDescription() + " from the beast");
+                }
+                player.backpack[firstEmptySlot] = droppedItem; // add item to users backpack
+
+            } else {
+                System.out.println("Backpack is full!");
+            }
+            return true;
+        }
+        System.out.println("Statemate.... There is some unfinished buisiness to be had");
+        return false; // if monster isn't dead
     }
 }
