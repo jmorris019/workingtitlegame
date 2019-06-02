@@ -1,21 +1,98 @@
-import java.text.ParseException;
 import java.util.Scanner;
 
 public class RunGame {
     NameBases n = new NameBases();
     Scanner s = new Scanner(System.in);
     static Player user;
-    static ActualMap map;
+    static ActualMap map = new ActualMap(); // also has players current position
 
     public RunGame() {
     }
 
-    void gameInProgress(Player player) {
+    boolean interaction(int direction) {
+        if (direction > 4 || direction < 0) {
+            System.out.println("Sorry, developer messed up");
+        }
+        Tile location = map.mapCoordinates[map.playerLocation.x][map.playerLocation.y]; // initialize
+        // switch statement to direct which tile the user intends to use
+        switch (direction) {
+            case 1: // if left
+                location = map.mapCoordinates[map.playerLocation.x][map.playerLocation.y - 1];
+                break;
+            case 2: // if right
+                location = map.mapCoordinates[map.playerLocation.x][map.playerLocation.y + 1];
+                break;
+            case 3: // if up
+                location = map.mapCoordinates[map.playerLocation.x - 1][map.playerLocation.y];
+                break;
+            case 4: // if down
+                location = map.mapCoordinates[map.playerLocation.x + 1][map.playerLocation.y];
+                break;
+            default:
+                System.out.println("Should never get here in interaction method");
+        }
+        if (location.tileImage == 'X') { // tile has already been beaten
+            System.out.println("Good Memories, nothing really to do here...");
+            return true;
+        }
+        if (location.type instanceof Monster) { // if monster
+            // switch statement for different monster dialogs
+            switch (((Monster) location.type).type) {
+                case BEAST:
+                    System.out.println("You feel a pair of eyes resting on you from a distance...");
+                    break;
+                case BRUTE:
+                    System.out.println("Heavy footsteps shake the ground. Closer they come...");
+                    break;
+                case NINJA:
+                    System.out.println("You here rustling nearby...");
+                    break;
+            }
+            int selection;
+            while (true) {
+                System.out.printf("1.) Run\n2.)Fight\n");
+                while (!s.hasNextInt()) {
+                    System.out.println("Not a number!");
+                    s.next();
+                }
+                selection = s.nextInt();
+                if (selection > 0 && selection < 3) { // if a valid option
+                    break;
+                }
+            }
+            if (selection == 1) {
+                System.out.println("You got out of there real fast");
+                return false;
+            } else { // fight, hell yeah!!
+                boolean fightOutcome;
+                System.out.println(((Monster) location.type).name + " attacks!"); // dialog
+                DamageCalc d = new DamageCalc();
+                fightOutcome = d.battleCalculator(user, (Monster) location.type);
+                if (fightOutcome) {
+                    location.tileImage = 'X'; // reset tile image
+                    return true;
+                }
+                return false;
+            }
+        }
+        if (location.type instanceof Market) { // if it is a market
+            marketTransaction((Market) location.type); // go into market sequence
+            return true;
+        }
+        if (location.type instanceof City) {
+            System.out.println("Do Shit!!!!");
+            return true;
+        }
+        System.out.println("Don't know how you got here.... in Interaction method");
+        return false;
+    }
+
+    void gameInProgress() {
         user.printUpdate(map);
         System.out.println("Which would you like to do?");
         int selection;
         while (true) {
-            System.out.printf("1.) Open Backpack / Use items\n2.) Move\n3.) Check Statistics");
+            System.out.printf("1.) Open Backpack / Use items\n2.) Move\n3.) Check Statistics\n");
             while (!s.hasNextInt()) {
                 System.out.println("Not a number!");
                 s.next();
@@ -30,11 +107,13 @@ public class RunGame {
                 user.openBackpack();
                 break;
             case 2:
-                System.out.println("Can't Move because programmers aren't here yet!");
+                move(); // move for the player
                 break;
             case 3:
                 System.out.println("No stats yet because developers haven't set up yet!");
         }
+        System.out.println("Player x: " + map.playerLocation.x);
+        System.out.println("Player y: " + map.playerLocation.y);
     }
 
     void marketTransaction(Market m) { // either buy or sell items
@@ -116,6 +195,7 @@ public class RunGame {
     }
 
     void startGame() {
+        map = new ActualMap();
         System.out.println("Welcome weary traveler! The land of Aidan's backyard is under-seige by monsters!");
         System.out.println("We need your help to take back all four cities to reclaim our kingdom.");
         System.out.println("What is your name? (Press enter for random name)");
@@ -156,79 +236,86 @@ public class RunGame {
 
         System.out.println("You've chosen the " + descriptor + " " + user.weapon.name().toLowerCase() + "! Now slay" +
                 " some monsters and take back Aidan's backyard!");
-        map.fillMap();
+        map.fillMap(user);
+        /* debugging check
+        System.out.println("Player x = " + map.playerLocation.x);
+        System.out.println("Player y = " + map.playerLocation.y);
+        */
     }
 
     void move() {
-        boolean valid = false;
         System.out.println("Which way would you like to move?");
         int nChoice;
-        Point playerLocation = map.getPlayerLocation(); // figure out where user is on the map
-        while (!valid) { // loop to ensure player movement is valid
        /*
         Loop to make sure entry is valid from the user
         */
-            while (true) {
-                System.out.printf("1.) Left\n2.) Right\n3.) Up\n4.) Down\n");
-                String choice = s.nextLine();
-                try {
-                    nChoice = Integer.parseInt(choice);
-                    if (nChoice > 0 && nChoice < 5) { // if choice is in the valid range
-                        break;
-                    }
-                } catch (Exception e) {
+        while (true) {
+            System.out.printf("1.) Left\n2.) Right\n3.) Up\n4.) Down\n");
+            String choice = s.nextLine();
+            try {
+                nChoice = Integer.parseInt(choice);
+                if (nChoice > 0 && nChoice < 5) { // if choice is in the valid range
+                    break;
                 }
-                System.out.println("Entry not valid!");
+            } catch (Exception e) {
             }
-            switch (nChoice) {
-                case 1:
-                    if ((playerLocation.x - 1) < 0) { // if the player would fall off the map
-                        System.out.println("Out of bounds!");
-                        break;
-                    } else {
-                        //player interacts with tile 
-                        //players spot is replacaed with an empty square
-                        valid = true;
-                        break;
-                    }
-                case 2:
-                    if ((playerLocation.x + 1) > 10) { // if the player would fall off the map
-                        System.out.println("Out of bounds!");
-                        break;
-                    } else {
-                        //player interacts with tile 
-                        //players spot is replacaed with an empty square
-                        valid = true;
+            System.out.println("Entry not valid!");
+        }
+        switch (nChoice) {
+            case 1:
+                if ((map.playerLocation.y - 1) < 0) { // if the player would fall off the map
+                    System.out.println("Out of bounds!");
+                    break;
+                } else {
+                    if (!interaction(1)) {
                         break;
                     }
-                case 3:
-                    if ((playerLocation.y - 1) < 0) { // if the player would fall off the map
-                        System.out.println("Out of bounds!");
-                        break;
-                    } else {
-                        //player interacts with tile 
-                        //players spot is replacaed with an empty square
-                        valid = true;
-                        break;
-                    }
-                case 4:
-                    if ((playerLocation.y + 1) > 10) { // if the player would fall off the map
-                        System.out.println("Out of bounds!");
-                        break;
-                    } else {
-                        //player interacts with tile 
-                        //players spot is replacaed with an empty square
-                        valid = true;
+                    map.playerLocation.y -= 1; // move player location one to the left
+                    break;
+                }
+            case 2:
+                if ((map.playerLocation.y + 1) > 10) { // if the player would fall off the map
+                    System.out.println("Out of bounds!");
+                    break;
+                } else {
+                    if (!interaction(2)) {
                         break;
                     }
-            }
+                    map.playerLocation.y += 1; // move player location one to the left
+                    break;
+
+                }
+
+            case 3:
+                if ((map.playerLocation.x - 1) < 0) { // if the player would fall off the map
+                    System.out.println("Out of bounds!");
+                    break;
+                } else {
+                    if (!interaction(3)) {
+                        break;
+                    }
+                    map.playerLocation.x -= 1; // move player location one to the left
+                    break;
+                }
+            case 4:
+                if ((map.playerLocation.x + 1) > 10) { // if the player would fall off the map
+                    System.out.println("Out of bounds!");
+                    break;
+                } else {
+                    if (!interaction(4)) {
+                        break;
+                    }
+                    map.playerLocation.x += 1; // move player location one to the left
+                }
         }
     }
 
     public static void main(String[] args) {
         RunGame r = new RunGame();
         r.startGame();
-        r.gameInProgress(user);
+        while (true) {
+            r.gameInProgress();
+        }
         /*
         Will pretty much start game, and then have a while loop with one other method calling to other methods
          */
